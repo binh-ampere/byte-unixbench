@@ -80,6 +80,31 @@ The shells scripts test measures the number of times per minute a process can st
 
 This estimates the cost of entering and leaving the operating system kernel, i.e., the overhead for performing a system call. It consists of a simple program repeatedly calling the `getpid` (which returns the process id of the calling process) system call. The time to execute such calls is used to estimate the cost of entering and exiting the kernel.
 
+### System Call Overhead with io_uring
+
+This branch is taking advantage of io_uring which showed up since kernel 5.1 release to reduce calling into the kernel and improves performance.
+The implementation relies on liburing:
+```
+git clone git@github.com:axboe/liburing.git
+cd liburing; cd liburing
+./configure --cc=gcc --cxx=g++
+make -j$(nproc);
+sudo make install;
+```
+Then build unixbench:
+```
+cd UnixBench
+make -j$(nproc);
+```
+To play default system call:
+```
+./pgms/syscall 10 close
+```
+To play system call with io_uring:
+```
+./pgms/syscall_io_uring 10 close
+```
+
 ### Graphical Tests
 
 Both 2D and 3D graphical tests are provided; at the moment, the 3D suite in particular is very limited, consisting of the `ubgears` program. These tests are intended to provide a very rough idea of the system's 2D and 3D graphics performance. Bear in mind, of course, that the reported performance will depend not only on hardware, but on whether your system has appropriate drivers for it.

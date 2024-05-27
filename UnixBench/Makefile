@@ -141,7 +141,7 @@ SOURCES = arith.c big.c context1.c \
 	dummy.c execl.c \
 	fstime.c hanoi.c \
 	pipe.c spawn.c \
-	syscall.c looper.c timeit.c time-polling.c \
+	syscall.c syscall_io_uring.c looper.c timeit.c time-polling.c \
 	dhry_1.c dhry_2.c dhry.h whets.c ubgears.c
 TESTS = sort.src cctest.c dc.dat large.txt
 
@@ -154,7 +154,7 @@ endif
 # Program binaries.
 BINS = $(PROGDIR)/arithoh $(PROGDIR)/register $(PROGDIR)/short \
 	$(PROGDIR)/int $(PROGDIR)/long $(PROGDIR)/float $(PROGDIR)/double \
-	$(PROGDIR)/hanoi $(PROGDIR)/syscall $(PROGDIR)/context1 \
+	$(PROGDIR)/hanoi $(PROGDIR)/syscall $(PROGDIR)/syscall_io_uring $(PROGDIR)/context1 \
 	$(PROGDIR)/pipe $(PROGDIR)/spawn $(PROGDIR)/execl \
 	$(PROGDIR)/dhry2 $(PROGDIR)/dhry2reg  $(PROGDIR)/looper \
 	$(PROGDIR)/fstime $(PROGDIR)/whetstone-double $(GRAPHIC_BINS)
@@ -275,6 +275,9 @@ $(PROGDIR)/hanoi: $(SRCDIR)/hanoi.c $(SRCDIR)/timeit.c
 $(PROGDIR)/fstime: $(SRCDIR)/fstime.c
 
 $(PROGDIR)/syscall: $(SRCDIR)/syscall.c $(SRCDIR)/timeit.c
+
+$(PROGDIR)/syscall_io_uring: $(SRCDIR)/syscall_io_uring.c $(SRCDIR)/timeit.c
+$(PROGDIR)/syscall_io_uring: LDFLAGS += -luring
 
 $(PROGDIR)/context1: $(SRCDIR)/context1.c $(SRCDIR)/timeit.c
 
