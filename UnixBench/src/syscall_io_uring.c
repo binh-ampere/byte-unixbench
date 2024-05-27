@@ -117,17 +117,6 @@ char	*argv[];
 		return 1;
 	}
 
-	ret = io_uring_register_ring_fd(&ring);
-        if (ret < 0) {
-                fprintf(stderr, "register_ring_fd: %s\n", strerror(-ret));
-                return 1;
-        }
-        ret = io_uring_close_ring_fd(&ring);
-        if (ret < 0) {
-                fprintf(stderr, "close_ring_fd: %s\n", strerror(-ret));
-                return 1;
-        }
-
 	iter = 0;
 	wake_me(duration, report);
 
