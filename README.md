@@ -85,7 +85,7 @@ This estimates the cost of entering and leaving the operating system kernel, i.e
 This branch is taking advantage of io_uring which showed up since kernel 5.1 release to reduce calling into the kernel and improves performance.
 The implementation relies on liburing:
 ```
-git clone https://github.com:axboe/liburing.git
+git clone https://github.com/axboe/liburing.git
 cd liburing
 ./configure --cc=gcc --cxx=g++
 make -j$(nproc);
